@@ -9,8 +9,14 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.database import engine, Base
 from app.routers import auth, projects, generate, export
 
-# Create database tables
-Base.metadata.create_all(bind=engine)
+# Create database tables on startup
+@app.on_event("startup")
+async def startup_event():
+    Base.metadata.create_all(bind=engine)
+
+@app.get("/health")
+def health_check():
+    return {"status": "ok", "vercel": os.getenv("VERCEL"), "db_url": str(engine.url)}
 
 # Initialize FastAPI app
 app = FastAPI(
