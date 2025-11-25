@@ -5,6 +5,10 @@ import os
 
 DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./app.db")
 
+# Vercel specific: Use /tmp for SQLite because other dirs are read-only
+if os.getenv("VERCEL"):
+    DATABASE_URL = "sqlite:////tmp/app.db"
+
 engine = create_engine(
     DATABASE_URL, 
     connect_args={"check_same_thread": False} if "sqlite" in DATABASE_URL else {}
