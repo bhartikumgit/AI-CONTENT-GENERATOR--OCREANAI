@@ -1,0 +1,10 @@
+{
+    "name": "ai-content-generator-root",
+    "private": true,
+    "scripts": {
+        "build": "cd frontend && npm install && npm run build"
+    },
+    "engines": {
+        "node": "18.x"
+    }
+}
