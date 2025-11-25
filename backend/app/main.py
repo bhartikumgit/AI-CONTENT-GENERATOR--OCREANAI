@@ -1,4 +1,5 @@
 from dotenv import load_dotenv
+import os
 
 # Load environment variables first
 load_dotenv()
@@ -15,7 +16,8 @@ Base.metadata.create_all(bind=engine)
 app = FastAPI(
     title="AI Document Generation API",
     description="API for generating and refining Word and PowerPoint documents using AI",
-    version="1.0.0"
+    version="1.0.0",
+    root_path="/api" if os.getenv("VERCEL") else ""
 )
 
 # CORS middleware
